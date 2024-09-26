@@ -44,7 +44,7 @@ bq_body <- function(body, ...) {
 #' @importFrom httr GET config
 bq_get <- function(url, ..., query = NULL, raw = FALSE, token = bq_token()) {
   req <- GET(
-    paste0(base_url, url),
+    URLencode(paste0(base_url, url)),
     token,
     httr::user_agent(bq_ua()),
     ...,
@@ -55,7 +55,7 @@ bq_get <- function(url, ..., query = NULL, raw = FALSE, token = bq_token()) {
 
 bq_exists <- function(url, ..., query = NULL, token = bq_token()) {
   req <- GET(
-    paste0(base_url, url),
+    URLencode(paste0(base_url, url)),
     token,
     httr::user_agent(bq_ua()),
     ...,
@@ -107,7 +107,7 @@ bq_get_paginated <- function(url, ..., query = NULL, token = bq_token(),
 #' @importFrom httr DELETE config
 bq_delete <- function(url, ..., query = NULL, token = bq_token()) {
   req <- DELETE(
-    paste0(base_url, url),
+    URLencode(paste0(base_url, url)),
     token,
     httr::user_agent(bq_ua()),
     ...,
@@ -121,7 +121,7 @@ bq_post <- function(url, body, ..., query = NULL, token = bq_token()) {
   json <- jsonlite::toJSON(body, pretty = TRUE, auto_unbox = TRUE)
 
   req <- POST(
-    paste0(base_url, url),
+    URLencode(paste0(base_url, url)),
     body = json,
     httr::user_agent(bq_ua()),
     token,
@@ -136,7 +136,7 @@ bq_post <- function(url, body, ..., query = NULL, token = bq_token()) {
 bq_patch <- function(url, body, ..., query = NULL, token = bq_token()) {
   json <- jsonlite::toJSON(body, pretty = TRUE, auto_unbox = TRUE)
   req <- PATCH(
-    paste0(base_url, url),
+    URLencode(paste0(base_url, url)),
     body = json,
     httr::user_agent(bq_ua()),
     token,
@@ -155,7 +155,7 @@ bq_upload <- function(url, metadata, media, query = list(), token = bq_token()) 
   config <- add_headers("Content-Type" = metadata[["type"]])
 
   req <- POST(
-    paste0(upload_url, url),
+    URLencode(paste0(upload_url, url)),
     body = metadata[["content"]],
     httr::user_agent(bq_ua()),
     token,
