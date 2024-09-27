@@ -273,7 +273,7 @@ set_row_params <- function(nrow, n_max = Inf, start_index = 0L) {
   check_number_whole(n_max, min = 0, allow_infinite = TRUE)
   check_number_whole(start_index, min = 0)
 
-  n_max <- max(min(n_max, nrow - start_index), 0)
+  n_max <- min(max(min(n_max, nrow - start_index), 0), 2^32 - 1)
 
   list(n_max = n_max, start_index = start_index)
 }
